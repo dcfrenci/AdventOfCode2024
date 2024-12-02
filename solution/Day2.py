@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def safe(lines):
+def one(lines):
     results = 0
     for line in lines:
         array = np.array(line.split(" "), dtype=int)
@@ -9,7 +9,8 @@ def safe(lines):
             results += 1
     print(results)
 
-def safer(lines):
+
+def two(lines):
     results = 0
     for line in lines:
         array = np.array(line.split(" "), dtype=int)
@@ -35,5 +36,5 @@ def check(array):
 
 if __name__ == '__main__':
     fileInput = open("input/Day2.txt", "r").read()
-    safe(fileInput.split("\n"))
-    safer(fileInput.split("\n"))
+    one(fileInput.split("\n"))
+    two(fileInput.split("\n"))
