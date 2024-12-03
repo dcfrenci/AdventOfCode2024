@@ -1,3 +1,5 @@
+import re
+
 
 def one(line):
     results = 0
@@ -20,9 +22,7 @@ def one(line):
 
 
 def two(line):
-    do = 0
-    dont = 0
-    results = 0
+    do = dont = results = 0
     for char in range(len(line)):
         if char + len("do()") <= len(line) and line[char: char + len("do()")] == "do()":
             do = char
@@ -45,7 +45,19 @@ def two(line):
     print(results)
 
 
+def one_libray(line):
+    array = re.findall(r"mul\(\d+,\d+\)", line)
+    return sum([int(re.findall(r"\d+", element)[0]) * int(re.findall(r"\d+", element)[1]) for element in array])
+
+
+def two_libray(line):
+    array = re.split(r"do\(\)", line)
+    return sum([one_libray(re.split(r"don't\(\)", array[element])[0]) for element in range(len(array))])
+
+
 if __name__ == '__main__':
     fileInput = open("input/Day3.txt", "r").read()
     one(fileInput)
+    print(one_libray(fileInput))
     two(fileInput)
+    print(two_libray(fileInput))
