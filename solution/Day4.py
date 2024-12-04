@@ -22,7 +22,7 @@ def calc_diagonal(matrix):
 def two(lines):
     matrix = np.array([list(line) for line in lines])
     sub_matrix_list = sliding_window_view(matrix, (3, 3)).reshape(-1, 3, 3)
-    return sum([1 for sub_matrix in sub_matrix_list if "".join(np.diag(sub_matrix)) == "MAS" or "".join(np.diag(sub_matrix)) == "SAM"
+    return len([sub_matrix for sub_matrix in sub_matrix_list if "".join(np.diag(sub_matrix)) == "MAS" or "".join(np.diag(sub_matrix)) == "SAM"
                 if "".join(np.diag(np.fliplr(sub_matrix))) == "MAS" or "".join(np.diag(np.fliplr(sub_matrix))) == "SAM"])
 
 if __name__ == '__main__':
