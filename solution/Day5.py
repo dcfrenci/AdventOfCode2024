@@ -1,5 +1,6 @@
 import numpy as np
 from collections import defaultdict
+import timeit
 
 
 def one(lines):
@@ -31,4 +32,8 @@ def control(rules, array, correction):
 if __name__ == '__main__':
     fileInput = open("input/Day5.txt", "r").read()
     print(one(fileInput.split("\n")))
+    execution_time = timeit.timeit(lambda: one(fileInput.split("\n")), number=1)
+    print(f"Execution time: {execution_time / 10:.6f} second")
     print(two(fileInput.split("\n")))
+    execution_time = timeit.timeit(lambda: two(fileInput.split("\n")), number=1)
+    print(f"Execution time: {execution_time / 10:.6f} second")
