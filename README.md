@@ -6,10 +6,10 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 
 You don't need a computer science background to participate - just a little programming knowledge and some problem-solving skills will get you pretty far. Nor do you need a fancy computer; every problem has a solution that completes in at most 15 seconds on ten-year-old hardware.
 ## Problems
-* [Day 1](#day-1-historian-hysteria-a-nameday1a)
-* [Day 2](#day-2-red-nosed-reports-a-nameday2a)
-* [Day 3](#day-3-mull-it-over-a-nameday3a)
-* [Day 4](#day-4-ceres-search-a-nameday4a)
+* [Day 1](#day1)
+* [Day 2](#day2)
+* [Day 3](#day3)
+* [Day 4](#day4)
 * [Day 5](#day5)
 
 ### Day 1: Historian Hysteria <a name="day1"></a>
