@@ -10,7 +10,7 @@ You don't need a computer science background to participate - just a little prog
 * [Day 2](#day-2-red-nosed-reports-a-nameday2a)
 * [Day 3](#day-3-mull-it-over-a-nameday3a)
 * [Day 4](#day-4-ceres-search-a-nameday4a)
-* [Day 5](#day-5-print-queue-a-nameday5a)
+* [Day 5](#day5)
 
 ### Day 1: Historian Hysteria <a name="day1"></a>
 --- Part One ---
