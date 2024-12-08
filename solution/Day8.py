@@ -15,18 +15,14 @@ def one(lines):
         for combination in combinations(position[letter], 2):
             line = combination[0][0] - combination[1][0]
             column = combination[0][1] - combination[1][1]
-            for node in ((combination[0][0] + line, combination[0][1] + column), (combination[1][1] - line, combination[1][1] - column)):
+            for node in ((combination[0][0] + line, combination[0][1] + column), (combination[1][0] - line, combination[1][1] - column)):
                 if check(node, len(matrix[0])):
                     anti_nodes.add(node)
     print(len(anti_nodes))
 
 
 def check(node, length):
-    if node[0] < 0 or node[0] >= length:
-        return False
-    if node[1] < 0 or node[1] >= length:
-        return False
-    return True
+    return 0 <= node[0] < length and 0 <= node[1] < length
 
 
 def two(lines):
@@ -48,13 +44,10 @@ def generate_nodes(n1, n2, length):
     nodes = []
     line = n1[0] - n2[0]
     column = n1[1] - n2[1]
-    while True:
+    while check(n1, length) or check(n2, length):
         nodes.append(n1)
         nodes.append(n2)
-        n1 = (n1[0] + line, n1[1] + column)
-        n2 = (n2[0] - line, n2[1] - column)
-        if not check(n1, length) and not check(n2, length):
-            break
+        n1, n2 = (n1[0] + line, n1[1] + column), (n2[0] - line, n2[1] - column)
     return nodes
 
 
