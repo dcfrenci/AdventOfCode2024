@@ -1,5 +1,6 @@
 import numpy as np
 import re
+from collections import defaultdict
 
 
 def one(lines):
@@ -196,51 +197,50 @@ def step(matrix):
 def two_v2(lines):
     matrix = np.array([list(line) for line in lines])
     results = 0
-    corners = []
     while np.any((matrix == '>') | (matrix == '<') | (matrix == 'v') | (matrix == '^')):
-        results += path(matrix, corners)
+        if len(np.where((matrix == '>') | (matrix == '<') | (matrix == 'v') | (matrix == '^'))[0]) > 1:
+            test = 0
+        results += path(matrix)
         matrix = step(matrix)
     print(results)
 
 
-def path(matrix, corners):
+def path(matrix):
+    results = 0
     position = np.where((matrix == '>') | (matrix == '<'))
     if np.any((matrix[position] == '>') | (matrix[position] == '<')):
         if matrix[position] == '>':
-            for string in cases(re.search(r">(.+)", matrix[position[0]])[0][1:]):
-                matrix[position[0]] = list(re.search(r"(.*?)>", string)[0] + string)
-
+            for string in cases(re.search(r">(.+)", "".join(matrix[position[0]][0]))[0][1:]):
+                matrix_copy = matrix.copy()
+                matrix_copy[position[0]] = np.array(list(re.search("(.+)>", "".join(matrix[position[0]][0]))[0] + string))
+                if cycle(matrix_copy):
+                    results += 1
         else:
-            test = 0
-        return matrix
+            for string in cases(re.search(r"(.+)<", "".join(matrix[position[0]][0]))[0][:-1][::-1]):
+                matrix_copy = matrix.copy()
+                matrix_copy[position[0]] = np.array(list(string[::-1] + re.search("<(.+)", "".join(matrix[position[0]][0]))[0]))
+                if cycle(matrix_copy):
+                    results += 1
+        return results
     else:
         matrix = matrix.transpose()
         position = np.where((matrix == 'v') | (matrix == '^'))
         if matrix[position] == 'v':
-            test = 0
+            for string in cases(re.search(r"v(.+)", "".join(matrix[position[0]][0]))[0][1:]):
+                matrix_copy = matrix.copy()
+                matrix_copy[position[0]] = np.array(list(re.search(r"(.+)v", "".join(matrix[position[0]][0]))[0] + string))
+                if cycle(matrix_copy.transpose()):
+                    results += 1
         else:
-            test = 0
-            # def cases(string):
-            #     string_list = []
-            #     for char in range(len(string)):
-            #         if string[char] != '#':
-            #             string_copy = list(string)
-            #             string_copy[char] = '#'
-            #             string_list.append("".join(string_copy))
-            #         else:
-            #             break
-            #     return string_list
-            #
-            #
-            #
-            #
-            # string = "..#.........<......#.."
-            # value = string.index("#")
-            # print(re.search(r"(.+)<", string)[0][:-1][::-1])
-            #
-            # for elem in cases(re.search(r"(.+)<", string)[0][:-1][::-1]):
-            #     print(elem[::-1] + re.search(r"<(.+)", string)[0])
-        return matrix.transpose()
+            for string in cases(re.search(r"(.+)\^", "".join(matrix[position[0]][0]))[0][:-1][::-1]):
+                matrix_copy = matrix.copy()
+                matrix_copy[position[0]] = np.array(list(string[::-1] + re.search(r"\^(.+)", "".join(matrix[position[0]][0]))[0]))
+                if len(np.where((matrix == '>') | (matrix == '<') | (matrix == 'v') | (matrix == '^'))[0]) > 1 or len(np.where((matrix_copy == '>') | (matrix_copy == '<') | (matrix_copy == 'v') | (matrix_copy == '^'))[0]) > 1:
+                    test = 0
+                if cycle(matrix_copy.transpose()):
+                    results += 1
+        return results
+
 
 def cases(string):
     string_list = []
@@ -254,8 +254,22 @@ def cases(string):
     return string_list
 
 
+def cycle(matrix):
+    corners = {'>': [], '<': [], '^': [], 'v': []}
+    while np.any((matrix == '>') | (matrix == '<') | (matrix == 'v') | (matrix == '^')):
+        position = np.where((matrix == '>') | (matrix == '<') | (matrix == 'v') | (matrix == '^'))
+        try:
+            if position in corners[matrix[position][0]]:
+                return True
+        except ValueError:
+            test = 0
+        corners[matrix[position][0]].append((position[0], position[1]))
+        matrix = step(matrix)
+    return False
+
 if __name__ == '__main__':
     fileInput = open("input/Day6.txt", "r").read()
     # one(fileInput.split("\n"))
     # two(fileInput.split("\n"))
-    one_v2(fileInput.split("\n"))
+    # one_v2(fileInput.split("\n"))
+    two_v2(fileInput.split("\n"))
