@@ -1,4 +1,3 @@
-import timeit
 from collections import defaultdict
 
 
@@ -42,7 +41,3 @@ if __name__ == '__main__':
     fileInput = open("input/Day11.txt", "r").read()
     one(fileInput.split("\n"))
     two(fileInput.split("\n"))
-    execution_time = timeit.timeit(lambda: one(fileInput.split("\n")), number=1)
-    print(f"Execution time: {execution_time:.6f} second")
-    execution_time = timeit.timeit(lambda: two(fileInput.split("\n")), number=1)
-    print(f"Execution time: {execution_time:.6f} second")
