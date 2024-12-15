@@ -76,4 +76,3 @@ if __name__ == '__main__':
     fileInput = open("input/Day15.txt", "r").read()
     one(fileInput.split("\n\n"))
     two(fileInput.split("\n\n"))
-
