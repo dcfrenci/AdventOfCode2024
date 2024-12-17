@@ -11,26 +11,26 @@ def one(lines):
         instruction = numbers[index]
         operand = get_operand(numbers[index + 1], register)
         index += 2
-        if instruction == 0:
+        if instruction == 0:                                # adv
             register['a'] = int(register['a'] / pow(2, operand))
-        elif instruction == 1:
+        elif instruction == 1:                              # bxl
             register['b'] = register['b'] ^ operand
-        elif instruction == 2:
+        elif instruction == 2:                              # bst
             # register['b'] = int((operand % 8) & 0b111)
             register['b'] = operand % 8
-        elif instruction == 3:
+        elif instruction == 3:                              # jnz
             if register['a'] != 0:
                 index = operand
-        elif instruction == 4:
+        elif instruction == 4:                              # bxc
             register['b'] = register['b'] ^ register['c']
-        elif instruction == 5:
+        elif instruction == 5:                              # out
             out = out + "".join(str(operand % 8) + ',')
-        elif instruction == 6:
+        elif instruction == 6:                              # bdv
             register['b'] = int(register['a'] / pow(2, operand))
-        elif instruction == 7:
+        elif instruction == 7:                              # cdv
             register['c'] = int(register['a'] / pow(2, operand))
 
-    print("output:", out)
+    print("output:", out[:-1])
     print(out.replace(',', ''))
 
 
